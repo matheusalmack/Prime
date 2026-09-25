@@ -2,6 +2,8 @@
 
 Aplicativo React/Vite com catálogo de produtos, links pessoais, autenticação e planos via Supabase e Applyfy.
 
+Produção: https://prime-bay-seven.vercel.app
+
 ## Desenvolvimento
 
 Requisitos: Node.js 24 e pnpm 11.19.0.
@@ -25,6 +27,6 @@ Migrations e Edge Function estão em `supabase/`. O backend existente é publica
 
 A função `applyfy-webhook` usa os secrets `APPLYFY_MONTHLY_TOKEN` e `APPLYFY_LIFETIME_TOKEN`, configurados somente no Supabase. O Auth Hook Before User Created exige compra aprovada. A confirmação de e-mail está desativada por decisão do proprietário.
 
-Depois de definir o domínio, configure Site URL e redirects no Supabase e a página de obrigado dos checkouts como `/criar-conta` no domínio publicado.
+O domínio de produção já está configurado no Supabase e nos funis dos dois produtos Applyfy, com retorno para `/criar-conta`. Ao trocar para um domínio próprio, atualize essas três configurações.
 
 Veja `docs/payment-activation.md` para estado da integração e validações realizadas.

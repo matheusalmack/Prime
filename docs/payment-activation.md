@@ -9,7 +9,15 @@ Atualizado em 23/09/2026: backend publicado no Supabase. Before User Created ati
 - Tipo Padrão; eventos TRANSACTION_CREATED, TRANSACTION_PAID, TRANSACTION_CANCELED, TRANSACTION_REFUNDED e TRANSACTION_CHARGED_BACK.
 - Endpoints: https://ikgilxwdllxyjmufvtqh.supabase.co/functions/v1/applyfy-webhook?plan=monthly e ?plan=lifetime.
 
-Frontend compilado localmente; domínio/hospedagem não informados, portanto frontend ainda não republicado.
+Frontend publicado em 24/09/2026: https://prime-bay-seven.vercel.app.
+Repositório: https://github.com/matheusalmack/Prime. Projeto Vercel: https://vercel.com/matheusalmack/prime.
+
+- Vercel com variáveis públicas do Supabase configuradas, build Vite e rotas SPA.
+- Supabase Site URL atualizado para o domínio publicado e redirect de produção autorizado.
+- Funis dos produtos mensal e vitalício salvos com etapa inicial conectada à página final externa https://prime-bay-seven.vercel.app/criar-conta, para todas as ofertas de cada produto.
+- Página de vendas dos dois produtos atualizada para o domínio publicado.
+- Cadastro publicado carregou corretamente; cupom AMIGO50 alterou preços e os dois checkouts no navegador.
+- Páginas públicas, rotas de acesso e favicon responderam HTTP 200. Doze testes locais e build passaram antes do deploy.
 
 ## Fluxo implementado
 
@@ -31,7 +39,6 @@ Frontend compilado localmente; domínio/hospedagem não informados, portanto fro
 
 ## Pendências para produção
 
-- Confirmar domínio/hospedagem para republicar frontend atualizado.
 - Testar primeira compra real ou sandbox autorizado do checkout até ativação da conta, incluindo renovação recorrente. Nenhum pagamento real foi efetuado pelo agente.
 - Confirmar presença de offerCode nas renovações reais. Eventos sem oferta reconhecida são rejeitados, sem liberar acesso indevido.
 

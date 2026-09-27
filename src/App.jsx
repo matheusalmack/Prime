@@ -1211,6 +1211,7 @@ function AffiliateLinkModal({ product, initialLink = '', onClose, onSave }) {
 
 function ProductsPage({ affiliateLinks, onSaveLink, products }) {
   const [query, setQuery] = useState('');
+  const resultsRef = useRef(null);
   const [activeCategory, setActiveCategory] = useState('Todos');
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
@@ -1235,8 +1236,14 @@ function ProductsPage({ affiliateLinks, onSaveLink, products }) {
     if (currentPage > pageCount) setCurrentPage(pageCount);
   }, [currentPage, pageCount]);
 
+  useEffect(() => {
+    if (window.matchMedia('(max-width: 899px)').matches) {
+      resultsRef.current?.scrollTo({ top: 0 });
+    }
+  }, [query, activeCategory, currentPage]);
+
   return (
-    <div className="offers-page">
+    <div className="offers-page product-browser">
       <header className="offers-header">
         <h1>Produtos</h1>
         <form className="product-search" role="search" onSubmit={(event) => event.preventDefault()}>
@@ -1266,6 +1273,7 @@ function ProductsPage({ affiliateLinks, onSaveLink, products }) {
         ))}
       </nav>
 
+      <div className="product-results" ref={resultsRef} role="region" aria-label="Lista de produtos" tabIndex={0}>
       {visibleProducts.length > 0 ? (
         <section className="product-grid" aria-label="Ofertas disponíveis">
           {paginatedProducts.map((product) => (
@@ -1287,6 +1295,8 @@ function ProductsPage({ affiliateLinks, onSaveLink, products }) {
       {visibleProducts.length > PRODUCTS_PER_PAGE && (
         <ProductPagination currentPage={currentPage} pageCount={pageCount} onPageChange={setCurrentPage} />
       )}
+
+      </div>
 
       <AffiliateLinkModal
         product={selectedProduct}

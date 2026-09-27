@@ -135,3 +135,20 @@
 @media (width < 600px) {
   .catalog-showcase-product:nth-child(n + 5) { display: none; }
 }
+
+/* Only the catalog results scroll; controls remain in the viewport. */
+@media (width < 900px) {
+  .product-browser {
+    height: 100dvh;
+    min-height: 0;
+    display: grid;
+    grid-template-rows: auto auto minmax(0, 1fr);
+    padding: max(8px, env(safe-area-inset-top)) 16px 0;
+    overflow: hidden;
+  }
+  .product-browser .offers-header { gap: 12px; margin-bottom: 12px; }
+  .product-browser .offers-header h1 { min-height: 44px; display: flex; align-items: center; padding-left: 52px; }
+  .product-browser .category-tabs { margin-bottom: 12px; }
+  .product-results { min-height: 0; overflow-y: auto; overscroll-behavior-y: contain; padding-bottom: max(20px, env(safe-area-inset-bottom)); }
+  .product-results:focus-visible { outline: 2px solid var(--action-orange); outline-offset: -2px; }
+}

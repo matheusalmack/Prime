@@ -1,0 +1,136 @@
+/* Mobile layout layer. Desktop composition stays in styles.css. */
+.sales-menu-toggle { display: none; }
+@media (width < 900px) {
+  :root { --mobile-gutter: 20px; }
+  .sales-nav { position: relative; flex-wrap: wrap; gap: 12px; padding: 12px var(--mobile-gutter); }
+  .sales-nav-actions { margin-left: auto; gap: 12px; }
+  .sales-nav-actions > a { display: inline-flex; align-items: center; min-height: 44px; font-size: 14px; }
+  .sales-nav-primary { display: none !important; }
+  .sales-menu-toggle { display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 1px solid var(--line); border-radius: 9px; background: white; }
+  .sales-nav > nav { display: none; flex: 0 0 100%; margin: 0; padding-top: 8px; border-top: 1px solid var(--line); }
+  .sales-nav > nav.is-open { display: grid; gap: 4px; }
+  .sales-nav > nav a { padding: 12px; min-height: 44px; font-size: 16px; }
+  .sales-hero { min-height: 0; }
+  .sales-hero-copy { padding: 40px var(--mobile-gutter) 0; }
+  .sales-hero-copy h1 { font-size: clamp(34px, 6vw, 48px); line-height: 1.1; letter-spacing: -1.2px; max-width: 650px; }
+  .sales-hero-copy > p { font-size: 16px; line-height: 1.6; max-width: 600px; }
+  .sales-hero-actions { gap: 10px; }
+  .sales-hero-actions a { min-height: 48px; flex: 1 1 135px; font-size: 15px; }
+  .sales-visual { min-height: 0; height: auto; padding: 40px var(--mobile-gutter) 36px; overflow: hidden; }
+  .sales-app-preview { position: relative; inset: auto; width: 100%; aspect-ratio: auto; grid-template-columns: minmax(0, 1fr); box-shadow: 0 8px 24px #39425c14; }
+  .sales-app-preview aside { display: none; }
+  .sales-app-preview > section { min-width: 0; padding: 16px; }
+  .sales-app-preview .preview-product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .sales-app-preview .preview-product-card:nth-child(n+5) { display: none; }
+  .sales-community, .sales-features, .sales-automation, .sales-proof, .sales-integrations, .sales-testimonials, .sales-pricing, .sales-footer { --sales-gutter: var(--mobile-gutter); padding-inline: var(--sales-gutter); }
+  .sales-community-copy, .sales-features-head, .sales-automation-head, .sales-proof-head, .sales-integrations-cta, .sales-testimonials-head, .sales-pricing-head { min-height: 0; padding: 36px 16px; }
+  .sales-page :is(.sales-community-copy, .sales-features-head, .sales-automation-head, .sales-proof-head, .sales-integrations-cta, .sales-testimonials-head, .sales-pricing-head) h2 { font-size: clamp(28px, 5vw, 36px); line-height: 1.15; letter-spacing: -.8px; }
+  .sales-feature-copy, .automation-copy { min-height: 0; padding: 26px 16px; }
+  .sales-feature-copy p, .automation-copy p, .sales-automation-head p, .sales-pricing-head p, .sales-plan > p, .sales-plan li { font-size: 16px; line-height: 1.6; }
+  .sales-brand-grid { padding: 16px; gap: 12px; }
+  .catalog-showcase { min-height: 0; padding: 20px 12px; }
+  .catalog-showcase-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .catalog-showcase-product h4 { font-size: 12px; }
+  .catalog-showcase-product strong { font-size: 14px; }
+  .catalog-showcase-action { font-size: 12px; }
+  .sales-plan { min-height: 0; padding: 30px 16px; }
+  .sales-plan-price { margin-block: 16px; }
+  .sales-plan-price strong { font-size: clamp(36px, 8vw, 48px); }
+  .sales-plan > a { min-height: 48px; }
+  .pricing-coupon-form { width: 100%; margin-top: 12px; }
+  .pricing-coupon-form :is(input, button) { height: 48px; font-size: 16px; }
+  .sales-footer-top, .sales-footer-legal { padding: 28px 16px; }
+  .sales-footer-legal p, .sales-footer-brand p { font-size: 14px; }
+  .sales-footer-social a { width: 44px; height: 44px; justify-content: center; }
+
+  /* A real drawer, with scrollable content and a persistent touch-sized trigger. */
+  .sidebar { visibility: hidden; width: min(320px, calc(100vw - 40px)); height: 100dvh; padding: max(12px, env(safe-area-inset-top)) 12px max(12px, env(safe-area-inset-bottom)); overflow-y: auto; overscroll-behavior: contain; }
+  .sidebar.is-open { visibility: visible; }
+  .sidebar-head { flex-shrink: 0; height: 52px; }
+  .sidebar-nav { gap: 6px; }
+  .sidebar .nav-item, .sidebar .account-menu button, .sidebar .redeem { min-height: 48px; font-size: 16px; }
+  .sidebar-footer { padding-top: 24px; }
+  .account-copy { min-width: 0; }
+  .account-copy :is(strong, small) { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .account-menu { max-height: min(320px, 65dvh); overflow-y: auto; }
+  .backdrop { background: #0005; }
+  .mobile-menu { top: max(8px, env(safe-area-inset-top)); left: 12px; background: white; border: 1px solid var(--line); border-radius: 9px; }
+  .offers-page, .dashboard-page { padding: calc(72px + env(safe-area-inset-top)) 16px 24px; }
+  .offers-header, .saved-products-header { gap: 16px; }
+  .offers-header h1, .saved-products-header h1, .promotion-header h1 { font-size: 22px; }
+  .product-search { height: 48px; }
+  .product-search input, .saved-products-page .saved-products-search input { font-size: 16px; }
+  .product-search button { padding-inline: 12px; font-size: 14px; }
+  .category-tabs { gap: 22px; margin-bottom: 20px; }
+  .category-tabs button { font-size: 15px; }
+  .product-card h2 { font-size: 16px; line-height: 22px; min-height: 44px; }
+  .product-card-body > button { width: 100%; min-height: 44px; font-size: 15px; }
+  .product-meta { flex-wrap: wrap; gap: 6px; }
+  .product-pagination { justify-content: center; flex-wrap: wrap; gap: 4px; }
+  .product-pagination button { width: 44px; height: 44px; font-size: 14px; }
+  .product-pagination .product-pagination-arrow { margin: 0; }
+  .product-pagination-ellipsis { width: 14px; }
+  .promotion-page { --promotion-gutter: 16px; --promotion-top-space: calc(72px + env(safe-area-inset-top)); grid-template-rows: auto minmax(0, 1fr) auto; }
+  .promotion-header { align-items: baseline; gap: 8px; }
+  .promotion-stepper { gap: 12px; }
+  .promotion-stepper li { min-width: max-content; }
+  .promotion-stepper button { padding: 0 6px; min-height: 48px; }
+  .promotion-stepper strong { font-size: 14px; }
+  .promotion-section-head { flex-wrap: wrap; }
+  .promotion-section-head p, .flow-actions p { font-size: 16px; line-height: 1.5; }
+  .promotion-footer { height: auto; min-height: 68px; padding-block: 10px max(10px, env(safe-area-inset-bottom)); }
+  .promotion-footer button, .download-assets, .generated-copy-head button, .promotion-section-head > button, .flow-actions a, .facebook-groups-grid a { min-height: 44px; font-size: 14px; }
+  .generated-copy-head { flex-wrap: wrap; gap: 8px; }
+  .generated-copy textarea, .caption-step textarea { font-size: 16px; }
+  .influencer-grid { max-height: min(48dvh, 420px); }
+
+  /* Dialog content scrolls inside the viewport, including landscape and keyboards. */
+  .settings-overlay, .link-modal-overlay { padding: max(8px, env(safe-area-inset-top)) 8px max(8px, env(safe-area-inset-bottom)); }
+  .link-modal, .invite-offer-modal, .settings-modal { max-height: calc(100dvh - 32px - env(safe-area-inset-top) - env(safe-area-inset-bottom)); overscroll-behavior: contain; }
+  .link-modal, .invite-offer-modal { padding: 16px; }
+  .link-modal-head h2 { font-size: 21px; }
+  .link-modal :is(input, textarea), .invite-offer-modal input, .settings-modal select { font-size: 16px; }
+  .link-modal :is(button, input, a), .invite-offer-modal :is(button, input), .settings-modal button { min-height: 44px; }
+  .link-modal-head > button, .settings-close { flex: 0 0 44px; width: 44px; height: 44px; }
+  .link-modal-actions { flex-wrap: wrap; }
+  .link-modal-actions button { flex: 1 1 120px; }
+  .invite-hero { padding: 18px; }
+  .invite-how li { align-items: flex-start; font-size: 16px; }
+  .invite-how h3, .invite-coupon-row label { font-size: 14px; }
+  .invite-coupon-row > div { flex-wrap: wrap; }
+  .invite-coupon-row input { flex-basis: 100px; }
+  .invite-share { flex-direction: column; padding: 14px; }
+  .invite-qr { width: 112px; height: 112px; }
+  .invite-share-controls { width: 100%; }
+  .invite-share button, .invite-coupon-row button { font-size: 14px; }
+  .invite-offer-feedback { font-size: 14px; }
+  .settings-sidebar nav { flex-wrap: wrap; }
+  .settings-content { padding: 16px; }
+}
+@media (600px <= width < 900px) {
+  :root { --mobile-gutter: 32px; }
+  .sales-app-preview { grid-template-columns: 145px minmax(0, 1fr); }
+  .sales-app-preview aside { display: flex; }
+  .sales-app-preview .preview-product-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .sales-app-preview .preview-product-card:nth-child(5), .sales-app-preview .preview-product-card:nth-child(6) { display: block; }
+  .catalog-showcase-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+@media (width < 900px) {
+  .sales-nav > nav { order: 3; }
+  .preview-catalog-heading { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  .preview-search { font-size: 10px; min-height: 36px; }
+  .sales-feature-copy h3, .automation-copy h3 { font-size: 24px; line-height: 1.2; }
+  .sales-testimonial > p { font-size: 16px; line-height: 1.6; }
+  .sales-brand-tile { padding: 16px; aspect-ratio: 1.5; }
+  .sales-brand-tile img { width: 80%; height: 55%; }
+  .sales-feature-visual, .automation-mini-visual, .automation-small-visual { min-height: 230px; }
+  .settings-modal { height: auto; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); }
+  .settings-sidebar { border-right: 0; border-bottom: 1px solid var(--line); padding: 16px; }
+  .settings-sidebar nav { flex-direction: row; }
+  .settings-sidebar nav button { width: auto; }
+  .link-modal-instructions, .link-modal-head p { font-size: 16px; line-height: 1.5; }
+  .open-shopee-button { white-space: normal; text-align: center; }
+}

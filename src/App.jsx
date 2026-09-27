@@ -224,9 +224,16 @@ const creatorBrands = [
 ];
 
 function SalesPage({ onNavigate, products = productOffers, promotionApplied = false }) {
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [discountApplied, setDiscountApplied] = useState(promotionApplied);
   const [couponInput, setCouponInput] = useState(promotionApplied ? PROMOTION_COUPON : '');
   const [couponError, setCouponError] = useState('');
+  useEffect(() => {
+    if (!mobileNavOpen) return undefined;
+    const close = (event) => { if (event.key === 'Escape') setMobileNavOpen(false); };
+    window.addEventListener('keydown', close);
+    return () => window.removeEventListener('keydown', close);
+  }, [mobileNavOpen]);
 
   function applyCoupon(event) {
     event.preventDefault();
@@ -253,7 +260,7 @@ function SalesPage({ onNavigate, products = productOffers, promotionApplied = fa
       <header className="sales-nav">
         <AppLogo className="sales-logo" />
 
-        <nav aria-label="Navegação da página de vendas">
+        <nav id="sales-navigation" className={mobileNavOpen ? 'is-open' : ''} aria-label="Navegação da página de vendas" onClick={() => setMobileNavOpen(false)}>
           <a href="#produto">Catálogo</a>
           <a href="#como-funciona">Como funciona</a>
           <a href="#precos">Preços</a>
@@ -263,6 +270,9 @@ function SalesPage({ onNavigate, products = productOffers, promotionApplied = fa
           <a href="/entrar" onClick={(event) => openApp(event, '/entrar')}>Entrar</a>
           <a className="sales-nav-primary" href="/novo" onClick={(event) => openApp(event, '/novo')}>Começar agora</a>
         </div>
+        <button className="sales-menu-toggle" aria-label={mobileNavOpen ? "Fechar navegação" : "Abrir navegação"} aria-expanded={mobileNavOpen} aria-controls="sales-navigation" onClick={() => setMobileNavOpen((value) => !value)}>
+          <Icon icon={mobileNavOpen ? Cancel01Icon : Menu01Icon} />
+        </button>
       </header>
 
       <main className="sales-hero" id="produto">
@@ -785,6 +795,12 @@ const promotionSteps = [
 
 function PromoteProductPage({ affiliateLinks, products }) {
   const [currentStep, setCurrentStep] = useState(1);
+  const stepperRef = useRef(null);
+  useEffect(() => {
+    if (window.matchMedia('(max-width: 899px)').matches) {
+      stepperRef.current?.querySelector('[aria-current="step"]')?.scrollIntoView({ block: 'nearest', inline: 'center' });
+    }
+  }, [currentStep]);
   const [selectedProductId, setSelectedProductId] = useState(null);
   const [selectedInfluencerId, setSelectedInfluencerId] = useState(null);
   const [copiedItem, setCopiedItem] = useState('');
@@ -856,7 +872,7 @@ function PromoteProductPage({ affiliateLinks, products }) {
         <span>Passo {currentStep} de {promotionSteps.length}</span>
       </header>
 
-      <ol className="promotion-stepper" aria-label="Etapas para divulgar produto">
+      <ol ref={stepperRef} className="promotion-stepper" aria-label="Etapas para divulgar produto">
         {promotionSteps.map((step, index) => {
           const stepNumber = index + 1;
           const isActive = stepNumber === currentStep;
@@ -1621,6 +1637,24 @@ function Sidebar({ open, onClose, collapsed, onCollapse, onExpand, activePath, o
   const [accountMenuOpen, setAccountMenuOpen] = useState(false);
   const [inviteOpen, setInviteOpen] = useState(false);
   const accountMenuRef = useRef(null);
+  const drawerRef = useDialogFocus(open && !inviteOpen);
+  useEffect(() => {
+    const desktop = window.matchMedia('(min-width: 900px)');
+    const closeOnDesktop = () => { if (desktop.matches && open) onClose(); };
+    desktop.addEventListener('change', closeOnDesktop);
+    return () => desktop.removeEventListener('change', closeOnDesktop);
+  }, [open, onClose]);
+  useEffect(() => {
+    if (!open) return undefined;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => { document.body.style.overflow = previous; };
+  }, [open]);
+  useEffect(() => {
+    const escape = (event) => { if (open && event.key === 'Escape' && !inviteOpen) onClose(); };
+    window.addEventListener('keydown', escape);
+    return () => window.removeEventListener('keydown', escape);
+  }, [open, inviteOpen, onClose]);
 
   useEffect(() => {
     if (!accountMenuOpen) return undefined;
@@ -1648,13 +1682,14 @@ function Sidebar({ open, onClose, collapsed, onCollapse, onExpand, activePath, o
 
   function openSettings(section) {
     setAccountMenuOpen(false);
+    onClose();
     onOpenSettings(section);
   }
 
   return (
     <>
       {open && <button className="backdrop" aria-label="Fechar menu" onClick={onClose} />}
-      <aside className={`sidebar ${open ? 'is-open' : ''} ${collapsed ? 'is-collapsed' : ''}`} aria-label="Navegação principal">
+      <aside ref={drawerRef} id="app-navigation" className={`sidebar ${open ? 'is-open' : ''} ${collapsed ? 'is-collapsed' : ''}`} aria-label="Navegação principal">
         <div className="sidebar-head">
           <a
             className="brand"
@@ -2149,9 +2184,10 @@ function App() {
         <button
           className="mobile-menu"
           aria-label="Abrir menu"
+          aria-expanded={sidebarOpen}
+          aria-controls="app-navigation"
           onClick={() => {
             setSidebarOpen(true);
-            setSidebarCollapsed(false);
           }}
         >
           <Icon icon={Menu01Icon} />

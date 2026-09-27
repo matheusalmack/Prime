@@ -131,3 +131,7 @@
   .link-modal-instructions, .link-modal-head p { font-size: 16px; line-height: 1.5; }
   .open-shopee-button { white-space: normal; text-align: center; }
 }
+
+@media (width < 600px) {
+  .catalog-showcase-product:nth-child(n + 5) { display: none; }
+}

@@ -224,16 +224,9 @@ const creatorBrands = [
 ];
 
 function SalesPage({ onNavigate, products = productOffers, promotionApplied = false }) {
-  const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [discountApplied, setDiscountApplied] = useState(promotionApplied);
   const [couponInput, setCouponInput] = useState(promotionApplied ? PROMOTION_COUPON : '');
   const [couponError, setCouponError] = useState('');
-  useEffect(() => {
-    if (!mobileNavOpen) return undefined;
-    const close = (event) => { if (event.key === 'Escape') setMobileNavOpen(false); };
-    window.addEventListener('keydown', close);
-    return () => window.removeEventListener('keydown', close);
-  }, [mobileNavOpen]);
 
   function applyCoupon(event) {
     event.preventDefault();
@@ -260,7 +253,7 @@ function SalesPage({ onNavigate, products = productOffers, promotionApplied = fa
       <header className="sales-nav">
         <AppLogo className="sales-logo" />
 
-        <nav id="sales-navigation" className={mobileNavOpen ? 'is-open' : ''} aria-label="Navegação da página de vendas" onClick={() => setMobileNavOpen(false)}>
+        <nav aria-label="Navegação da página de vendas">
           <a href="#produto">Catálogo</a>
           <a href="#como-funciona">Como funciona</a>
           <a href="#precos">Preços</a>
@@ -270,9 +263,6 @@ function SalesPage({ onNavigate, products = productOffers, promotionApplied = fa
           <a href="/entrar" onClick={(event) => openApp(event, '/entrar')}>Entrar</a>
           <a className="sales-nav-primary" href="/novo" onClick={(event) => openApp(event, '/novo')}>Começar agora</a>
         </div>
-        <button className="sales-menu-toggle" aria-label={mobileNavOpen ? "Fechar navegação" : "Abrir navegação"} aria-expanded={mobileNavOpen} aria-controls="sales-navigation" onClick={() => setMobileNavOpen((value) => !value)}>
-          <Icon icon={mobileNavOpen ? Cancel01Icon : Menu01Icon} />
-        </button>
       </header>
 
       <main className="sales-hero" id="produto">

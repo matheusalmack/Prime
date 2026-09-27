@@ -1,14 +1,11 @@
 /* Mobile layout layer. Desktop composition stays in styles.css. */
-.sales-menu-toggle { display: none; }
 @media (width < 900px) {
   :root { --mobile-gutter: 20px; }
   .sales-nav { position: relative; flex-wrap: wrap; gap: 12px; padding: 12px var(--mobile-gutter); }
   .sales-nav-actions { margin-left: auto; gap: 12px; }
   .sales-nav-actions > a { display: inline-flex; align-items: center; min-height: 44px; font-size: 14px; }
   .sales-nav-primary { display: none !important; }
-  .sales-menu-toggle { display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 1px solid var(--line); border-radius: 9px; background: white; }
   .sales-nav > nav { display: none; flex: 0 0 100%; margin: 0; padding-top: 8px; border-top: 1px solid var(--line); }
-  .sales-nav > nav.is-open { display: grid; gap: 4px; }
   .sales-nav > nav a { padding: 12px; min-height: 44px; font-size: 16px; }
   .sales-hero { min-height: 0; }
   .sales-hero-copy { padding: 40px var(--mobile-gutter) 0; }

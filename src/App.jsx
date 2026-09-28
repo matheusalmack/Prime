@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import QRCode from 'qrcode';
+import { getProductCampaign, buildProductCaption, buildVideoPrompt, getFacebookGroupTerms } from './utils/campaigns';
 import { HugeiconsIcon } from '@hugeicons/react';
 import productsPart1 from './shopeeProductsPart1';
 import productsPart2 from './shopeeProductsPart2';
@@ -783,7 +784,7 @@ const promotionSteps = [
   { label: 'Divulgar', icon: UserGroupIcon },
 ];
 
-function PromoteProductPage({ affiliateLinks, products }) {
+function PromoteProductPage({ affiliateLinks, products, onSaveLink }) {
   const [currentStep, setCurrentStep] = useState(1);
   const stepperRef = useRef(null);
   useEffect(() => {
@@ -794,20 +795,16 @@ function PromoteProductPage({ affiliateLinks, products }) {
   const [selectedProductId, setSelectedProductId] = useState(null);
   const [selectedInfluencerId, setSelectedInfluencerId] = useState(null);
   const [copiedItem, setCopiedItem] = useState('');
+  const [editingAffiliateLink, setEditingAffiliateLink] = useState(false);
 
   const selectedProduct = products.find((product) => product.id === selectedProductId);
   const selectedInfluencer = influencerProfiles.find((profile) => profile.id === selectedInfluencerId);
+  const campaign = getProductCampaign(selectedProduct);
   const groups = selectedProduct
-    ? facebookGroupIdeas[selectedProduct.category] ?? fallbackFacebookGroups
+    ? getFacebookGroupTerms(facebookGroupIdeas[selectedProduct.category] ?? fallbackFacebookGroups)
     : [];
-
-  const videoPrompt = selectedProduct && selectedInfluencer
-    ? `Crie um vídeo publicitário vertical 9:16, com duração entre 15 e 20 segundos, para o produto “${selectedProduct.name}”. Use a foto do produto como referência principal e a foto do influenciador como personagem. O influenciador deve ter uma comunicação ${selectedInfluencer.tone}, demonstrar o produto de forma natural, destacar o benefício principal e finalizar com uma chamada para ação. Cenário realista relacionado ao nicho ${selectedProduct.category.toLocaleLowerCase('pt-BR')}, luz natural, movimentos suaves de câmera, áudio limpo e fala em português do Brasil. Preserve a aparência do produto e do influenciador das imagens de referência.`
-    : '';
-
-  const caption = selectedProduct
-    ? `Olha esse achado: ${selectedProduct.name} ✨\n\nPrático, útil e com ótimo custo-benefício. Vale a pena conferir antes que a oferta termine.\n\n${affiliateLinks[selectedProduct.id] ? `Confira aqui: ${affiliateLinks[selectedProduct.id]}` : 'Confira pelo link de afiliado.'}\n\n#achadinhos #ofertas #${selectedProduct.category.toLocaleLowerCase('pt-BR').replaceAll(' ', '').replaceAll('ç', 'c').replaceAll('ã', 'a')}`
-    : '';
+  const videoPrompt = selectedProduct && selectedInfluencer ? buildVideoPrompt(selectedProduct) : '';
+  const caption = buildProductCaption(selectedProduct, affiliateLinks);
 
   async function copyText(text, item) {
     try {
@@ -843,7 +840,7 @@ function PromoteProductPage({ affiliateLinks, products }) {
   }
 
   function goNext() {
-    if (currentStep === 1 && !selectedProduct) return;
+    if (currentStep === 1 && (!selectedProduct || !campaign)) return;
     if (currentStep === 2 && !selectedInfluencer) return;
     setCurrentStep((step) => Math.min(step + 1, promotionSteps.length));
   }
@@ -970,11 +967,17 @@ function PromoteProductPage({ affiliateLinks, products }) {
                 <h2>Legenda pronta</h2>
                 <p>Revise e copie a legenda para publicar junto com o vídeo.</p>
               </div>
-              <button type="button" onClick={() => copyText(caption, 'caption')}>
+              <button type="button" onClick={() => copyText(caption, 'caption')} disabled={!caption}>
                 <Icon icon={Copy01Icon} size={15} /> {copiedItem === 'caption' ? 'Copiada' : 'Copiar legenda'}
               </button>
             </div>
-            <textarea value={caption} readOnly aria-label="Legenda gerada" />
+            {!caption && campaign && (
+              <div className="campaign-link-notice" role="status">
+                <p>Adicione seu link de afiliado deste produto para copiar a legenda completa.</p>
+                <button type="button" onClick={() => setEditingAffiliateLink(true)}>Adicionar meu link</button>
+              </div>
+            )}
+            <textarea value={caption || (campaign ? `${campaign.caption}\n\n${campaign.hashtags.join(' ')}` : '')} rows={14} readOnly aria-label="Legenda gerada" />
           </div>
         )}
 
@@ -983,16 +986,16 @@ function PromoteProductPage({ affiliateLinks, products }) {
             <div className="promotion-section-head">
               <div>
                 <h2>Grupos do Facebook</h2>
-                <p>Encontre comunidades relacionadas ao nicho de {selectedProduct.category.toLocaleLowerCase('pt-BR')}.</p>
+                <p>Comece por achadinhos e ofertas da Shopee, depois explore seu nicho. Confira as regras de cada grupo antes de publicar.</p>
               </div>
             </div>
             <div className="facebook-groups-grid">
-              {groups.map((group) => (
+              {groups.map((group, index) => (
                 <article key={group}>
                   <Icon icon={UserGroupIcon} size={20} />
                   <div>
                     <strong>{group}</strong>
-                    <small>Grupo relacionado ao seu público</small>
+                    <small>{index < 2 ? 'Busca por ofertas e achadinhos Shopee' : 'Busca relacionada ao seu produto'}</small>
                   </div>
                   <a href={`https://www.facebook.com/search/groups/?q=${encodeURIComponent(group)}`} target="_blank" rel="noreferrer">
                     Buscar grupo <Icon icon={ArrowRight01Icon} size={14} />
@@ -1013,7 +1016,7 @@ function PromoteProductPage({ affiliateLinks, products }) {
             type="button"
             className="primary"
             onClick={goNext}
-            disabled={(currentStep === 1 && !selectedProduct) || (currentStep === 2 && !selectedInfluencer)}
+            disabled={(currentStep === 1 && (!selectedProduct || !campaign)) || (currentStep === 2 && !selectedInfluencer)}
           >
             Próximo <Icon icon={ArrowRight01Icon} size={15} />
           </button>
@@ -1021,6 +1024,10 @@ function PromoteProductPage({ affiliateLinks, products }) {
           <button type="button" className="primary" onClick={restart}>Criar nova divulgação</button>
         )}
       </footer>
+      {selectedProduct && !campaign && <p className="campaign-unavailable" role="status">O conteúdo deste produto ainda não está disponível.</p>}
+      <AffiliateLinkModal product={editingAffiliateLink ? selectedProduct : null}
+        initialLink={selectedProduct ? affiliateLinks[selectedProduct.id] ?? '' : ''}
+        onClose={() => setEditingAffiliateLink(false)} onSave={onSaveLink} />
     </div>
   );
 }
@@ -2193,7 +2200,7 @@ function App() {
           <Icon icon={Menu01Icon} />
         </button>
 
-        {currentPath === '/novo' && <PromoteProductPage affiliateLinks={affiliateLinks} products={catalogProducts} />}
+        {currentPath === '/novo' && <PromoteProductPage affiliateLinks={affiliateLinks} products={catalogProducts} onSaveLink={saveAffiliateLink} />}
         {currentPath === '/produtos' && (
           <ProductsPage affiliateLinks={affiliateLinks} onSaveLink={saveAffiliateLink} products={catalogProducts} />
         )}

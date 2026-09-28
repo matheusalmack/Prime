@@ -8,7 +8,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "test:payments": "node --test tests/payment-access.test.mjs",
-    "test": "node --test tests/payment-access.test.mjs src/components/dateRange.test.js"
+    "test": "node --test tests/payment-access.test.mjs src/components/dateRange.test.js tests/campaigns.test.mjs"
   },
   "dependencies": {
     "@hugeicons/core-free-icons": "^4.3.0",

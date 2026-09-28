@@ -4334,3 +4334,9 @@ button:not(.sales-app-preview *):not(.settings-modal *):not(.sidebar *)::after {
 @media (pointer: coarse) { .pricing-coupon-form input { font-size: 16px; } .pricing-coupon-form :is(input, button) { min-height: 44px; } }
 .sales-plan-price strong .installment-prefix { font-size: .45em; font-weight: 400; letter-spacing: -.5px; }
 
+
+.campaign-link-notice { padding: 14px; margin-bottom: 16px; border: 1px solid #f3c6b9; background: #fff7f3; }
+.campaign-link-notice p { margin: 0 0 10px; font-size: 14px; line-height: 1.5; }
+.campaign-link-notice button { min-height: 44px; padding: 8px 14px; color: white; border: 0; background: var(--action-orange); cursor: pointer; }
+.campaign-unavailable { position: absolute; bottom: 72px; left: 20px; right: 20px; padding: 12px; background: #fff7f3; border: 1px solid #f3c6b9; font-size: 14px; }
+.promotion-section-head > button:disabled { opacity: .5; cursor: not-allowed; }

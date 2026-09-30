@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import QRCode from 'qrcode';
 import { getProductCampaign, buildProductCaption, buildVideoPrompt, getFacebookGroupTerms } from './utils/campaigns';
 import { HugeiconsIcon } from '@hugeicons/react';
@@ -785,6 +785,10 @@ const promotionSteps = [
 ];
 
 function PromoteProductPage({ affiliateLinks, products, onSaveLink }) {
+  const orderedProducts = useMemo(
+    () => [...products].sort((a, b) => Number(Boolean(affiliateLinks[b.id])) - Number(Boolean(affiliateLinks[a.id]))),
+    [products, affiliateLinks],
+  );
   const [currentStep, setCurrentStep] = useState(1);
   const stepperRef = useRef(null);
   useEffect(() => {
@@ -881,7 +885,7 @@ function PromoteProductPage({ affiliateLinks, products, onSaveLink }) {
         {currentStep === 1 && (
           <div className="promotion-section promotion-product-step" aria-label="Escolha o produto">
             <div className="product-grid promotion-catalog-grid" role="region" aria-label="Catálogo para escolher produto" tabIndex={0}>
-              {products.map((product) => (
+              {orderedProducts.map((product) => (
                 <ProductCard
                   key={product.id}
                   product={product}

@@ -1,6 +1,6 @@
 # Prime V2 — validação de lançamento, 5 de outubro de 2026
 
-Produção ainda permanece no V1. Esta revisão prepara uma prévia do V2 antes da troca do domínio.
+Produção ainda permanece no V1. A V2 foi enviada ao GitHub na branch `codex/prime-v2-launch` (commit `b66b391`) e a prévia da Vercel está pronta: https://prime-8nsiseolb-matheusalmack.vercel.app/. A prévia exige autenticação Vercel; o navegador do proprietário já consegue acessá-la.
 
 ## Dados e contas preservados
 
@@ -13,6 +13,8 @@ Login e cadastro manual usam Supabase Auth; cadastro exige compra aprovada e ati
 A função `prime-account` autentica o usuário no servidor, exige confirmação do e-mail e agenda a exclusão para após 30 dias. Encerra as sessões existentes; um novo login cancela o pedido por trigger em `auth.sessions`. Login e finalização bloqueiam a mesma linha de usuário para evitar remover uma conta cujo pedido foi cancelado. Fotos são enfileiradas para remoção pela Storage API após a transação.
 
 `prime-maintenance` foi publicada e o agendamento a cada 10 minutos foi ativado. Usa uma chave privada no Vault ou autenticação administrativa server-side; não expõe a chave ao frontend. O proprietário aprovou a criação dessa credencial e a substituição da verificação de JWT legado pela validação interna das funções.
+
+O webhook Applyfy hospedado foi atualizado para invocar a manutenção após persistir a aprovação; a trigger no banco conserva a fila para novas tentativas. A função rejeitou uma chamada com token inválido com 401. Nenhum pagamento fictício foi aprovado.
 
 A fila de ativação considera apenas novas compras aprovadas, revalida o acesso antes do envio e preserva clientes existentes. Não substitui senhas, fotos, nomes ou IDs. Convites falhos ficam disponíveis para novas tentativas.
 
@@ -42,8 +44,10 @@ Carregamento compartilhado com logo central animada para autenticação, saída,
 ## Verificações concluídas e limites
 
 - 32 testes do projeto principal e 13 da V2 aprovados: pagamento, renovação, reembolso, isolamento por conta, avatares privados, sessões, lojas, cookies, rotas, exclusão adiada e ativação.
-- Build da V2 após instalação limpa aprovado. Permanece aviso de bundle grande.
+- Build da V2 após instalação limpa aprovado, inclusive no servidor Vercel (Ready, build em 11,92 s). Permanece aviso de bundle grande. FAQ e login carregam pelas rotas diretas no navegador autenticado na Vercel; respostas HTTP da prévia protegida não foram contadas como teste de rota porque levam ao login da Vercel.
 - APIs hospedadas de conta/manutenção rejeitam chamadas sem autenticação com 401; a RPC de finalização não aceita acesso anônimo.
+- Agendamento e chamada manual com filas vazias retornaram HTTP 200, sem timeout, com zero falhas, exclusões, remoções ou ativações. Ativação por e-mail permanece desligada.
+- Site URL Auth atualizado para `https://primeafiliado.com`; recuperação permite os destinos exatos `/recuperar-senha` no domínio principal e www, preservando destinos anteriores.
 - Banco preserva as 4 contas e 38 produtos salvos; nenhuma solicitação de exclusão ou ativação foi criada na validação.
 
 Ainda concluir antes de afirmar que todos os fluxos foram comprovados:
@@ -51,5 +55,4 @@ Ainda concluir antes de afirmar que todos os fluxos foram comprovados:
 - Login visual do proprietário, conferência dos 29 produtos e perfil, e validação de escrita/persistência em dados autorizados.
 - Fluxo de compra completo no Applyfy e recebimento do evento hospedado. Testes de contrato e banco não comprovam uma transação real.
 - SMTP/ativação e recuperação por e-mail, adiados pelo proprietário.
-- Ajustar os destinos Auth para o domínio canônico no lançamento; Site URL ainda é o endereço anterior da Vercel.
 - Conexão Shopee da V2 permanece explicitamente em demonstração; não é uma autenticação real Shopee.

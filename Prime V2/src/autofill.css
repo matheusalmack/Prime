@@ -1,0 +1,18 @@
+/* Autofill keeps the field's own surface instead of the browser's blue tint. */
+input,textarea{--autofill-surface:var(--field);--autofill-text:var(--text)}
+.settings-profile-form input,.video-workspace textarea{--autofill-surface:var(--modal-surface)}
+:is(input,textarea):is(:autofill,:-webkit-autofill){
+ -webkit-text-fill-color:var(--autofill-text)!important;
+ caret-color:var(--autofill-text)!important;
+ -webkit-box-shadow:0 0 0 1000px var(--autofill-surface) inset!important;
+ box-shadow:0 0 0 1000px var(--autofill-surface) inset!important;
+}
+/* Borderless fields show the surrounding surface, including photo backgrounds. */
+:is(.account-edit-modal,.supplier-modal,.feedback-modal,.composer,.supplier-search,.video-picker-search,.store-product-search,.sb-address,.sf-search,.sf2-search,.global-search-header,.language-picker-search,.promotion-product-search,.promotion-money-field,.search-dialog) :is(input,textarea):is(:autofill,:-webkit-autofill){
+ -webkit-background-clip:text!important;
+ background-clip:text!important;
+ -webkit-box-shadow:none!important;
+ box-shadow:none!important;
+}
+.sf2 input{--autofill-text:var(--v-text)}
+.storefront input{--autofill-text:var(--store-text,var(--text))}

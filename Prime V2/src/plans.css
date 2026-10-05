@@ -1,0 +1,33 @@
+.v2-modal-overlay:has(.plans-screen){padding:0;background:var(--page);backdrop-filter:none}
+.v2-modal.plans-screen{position:relative;width:100%;max-width:none;height:100dvh;max-height:none;border:0;border-radius:0;padding:64px 20px 40px;background:var(--page);color:var(--text);overflow:auto;box-shadow:none}
+.plans-close{position:fixed;top:16px;right:16px;z-index:2}
+.plans-content{width:100%;max-width:720px;margin:auto}
+.plans-heading{text-align:center;margin-bottom:32px}
+.plans-brand{display:flex;align-items:center;justify-content:center;gap:8px;font-size:28px;font-weight:500;letter-spacing:-.8px;line-height:36px}
+.plans-heading h1{font-size:22px;line-height:30px;font-weight:500;letter-spacing:-.5px;margin:14px 0 0}
+.plans-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:16px}
+.plans-card{padding:22px;border:1px solid var(--line);border-radius:20px;background:var(--sidebar);box-shadow:0 6px 28px #00000004;min-width:0}
+.plans-card-popular{border:1.5px solid var(--blue)}
+.plans-card-title{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:24px}
+.plans-screen .plans-card-title h2,.landing-pricing .plans-card-title h2{margin:0;font-size:18px;line-height:24px;font-weight:500;letter-spacing:-.5px}
+.plans-badge{flex-shrink:0;color:var(--blue);background:color-mix(in srgb,var(--blue) 10%,transparent);border-radius:999px;padding:3px 8px;font-size:11px;line-height:16px;font-weight:500}
+.plans-description{margin:10px 0 16px;color:var(--muted);font-size:13px;line-height:20px}
+.plans-price{display:flex;align-items:baseline;gap:6px;line-height:40px}
+.plans-price>span{font-size:30px;letter-spacing:-1px;font-weight:500}
+.plans-price>small{font-size:13px;color:var(--muted);font-weight:500}
+.plans-term{font-size:12px;line-height:18px;color:var(--muted);margin:2px 0 24px}
+.plans-card a.plans-action{display:block;text-align:center;text-decoration:none;width:100%;min-height:44px;padding:11px 16px;border-radius:999px;background:var(--text);color:var(--page);font-size:13px;line-height:20px;font-weight:500;transition:opacity .15s ease}
+.plans-card a.plans-action:hover{background:var(--text);opacity:.85}
+.plans-action:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+.plans-benefits{list-style:none;margin:22px 0 0;padding:0;display:grid;gap:14px}
+.plans-benefits li{display:flex;align-items:flex-start;gap:10px;font-size:14px;line-height:21px}
+.plans-benefits li>svg{flex:0 0 16px;width:16px;height:16px;color:var(--muted);margin-top:3px}
+.plans-benefits li p{margin:3px 0 0;color:var(--muted);font-size:12px;line-height:19px}
+@media(min-width:700px){.v2-modal.plans-screen{padding:56px 36px 40px}.plans-close{top:20px;right:24px}.plans-heading{margin-bottom:38px}.plans-heading h1{font-size:20px;line-height:28px}.plans-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.plans-card{padding:24px}}
+@media(min-width:700px) and (max-height:820px){.v2-modal.plans-screen{padding-top:32px;padding-bottom:20px}.plans-heading{margin-bottom:24px}.plans-heading h1{margin-top:10px;font-size:20px;line-height:28px}.plans-card{padding:24px}.plans-description{font-size:13px;line-height:20px;margin-bottom:12px}.plans-term{margin-bottom:18px}.plans-benefits{gap:12px;margin-top:22px}.plans-benefits li{font-size:12px;line-height:19px}.plans-benefits li p{font-size:12px;line-height:19px}}
+@media(prefers-reduced-motion:reduce){.plans-card a.plans-action{transition:none}}
+
+
+.plans-heavy{font-weight:300;letter-spacing:0;background:linear-gradient(110deg,var(--blue),#63baff);background-clip:text;-webkit-background-clip:text;color:transparent}
+
+.plans-brand .prime-brand-mark{width:32px;height:32px;flex-basis:32px}

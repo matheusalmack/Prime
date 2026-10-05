@@ -1,0 +1,11 @@
+.update-welcome{min-height:100dvh;display:grid;place-items:center;padding:64px 28px;background:var(--page);color:var(--text)}
+.update-welcome-content{width:100%;max-width:620px;text-align:center}
+.update-welcome-content>.prime-brand-mark{margin:0 auto 32px;width:68px;height:68px}
+.update-welcome h1{font-size:26px;line-height:1.25;font-weight:500;letter-spacing:-.8px;margin:0 auto 24px;max-width:580px;text-wrap:balance;outline:none}
+.update-welcome p{font-size:16px;line-height:1.8;color:var(--muted);margin:0 auto 36px;max-width:570px}
+.update-welcome p a{color:var(--text);text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
+.update-welcome button,.update-release-continue{display:block;width:100%;max-width:400px;margin:0 auto;background:var(--text);color:var(--page);border-radius:999px;min-height:52px;padding:14px 24px;font-size:16px;font-weight:500;transition:opacity 150ms ease}
+.update-welcome button:hover,.update-release-continue:hover{background:var(--text);opacity:.85}.update-welcome button:focus-visible,.update-welcome a:focus-visible,.update-release-continue:focus-visible{outline:2px solid var(--blue);outline-offset:4px}
+.update-release-preview{min-height:100dvh;padding:32px 24px 60px;background:var(--page)}.update-release-preview>header{display:flex;align-items:center;justify-content:space-between;max-width:900px;margin:0 auto 40px}.update-release-preview>header button{display:flex;align-items:center;gap:10px;min-height:44px;border-radius:12px;padding:8px 12px;font-size:14px}.update-release-preview .help-page{margin:0 auto 36px;padding-top:0!important;max-width:900px;width:100%}.update-release-preview .help-page h1{outline:none}
+@media(max-width:759px){.update-welcome{padding:40px 24px}.update-welcome-content>.prime-brand-mark{width:68px;height:68px;margin-bottom:28px}.update-welcome h1{font-size:23px;line-height:1.25;letter-spacing:-.6px;margin-bottom:22px}.update-welcome p{font-size:14px;line-height:1.75;margin-bottom:30px}.update-welcome p br{display:none}.update-welcome button{min-height:50px}.update-release-preview{padding:20px 20px 40px}}
+@media(prefers-reduced-motion:reduce){.update-welcome button,.update-release-continue{transition:none}}

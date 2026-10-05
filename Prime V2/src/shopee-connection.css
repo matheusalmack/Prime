@@ -1,0 +1,14 @@
+.v2-modal.shopee-connection-modal{position:relative;max-width:380px;padding:36px 28px 28px;border-radius:24px;text-align:center}
+.shopee-connection-close{position:absolute;top:14px;right:14px}
+.shopee-connection-icon{display:grid;place-items:center;width:72px;height:72px;margin:4px auto 24px;border-radius:22px;color:#ee4d2d;background:#ee4d2d12}
+.shopee-connection-icon img{display:block;width:44px;height:44px;object-fit:contain}
+.shopee-connection-modal h2{margin:0;font-size:20px;font-weight:500;line-height:28px;letter-spacing:-.4px}
+.shopee-connection-modal p{margin:10px auto 0;max-width:280px;font-size:14px;line-height:22px;color:var(--muted)}
+.shopee-connection-actions{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:28px;min-height:42px}
+.shopee-connection-actions>button{flex:1;min-height:42px}
+.shopee-connection-actions>.account-button{transition:background-color 150ms ease,opacity 150ms ease}
+.shopee-connection-actions>.account-button:not(.account-button-primary):hover{background:color-mix(in srgb,var(--text) 10%,var(--field))}
+.shopee-connection-actions>.account-button-primary:hover{opacity:.85}
+@media(max-width:480px){.v2-modal.shopee-connection-modal{padding:32px 22px 24px}}
+
+.shopee-connection-spinner{animation:shopee-connect-spin 1s linear infinite}.shopee-connection-actions>button:disabled{cursor:wait;opacity:.7}@keyframes shopee-connect-spin{to{transform:rotate(360deg)}}@media(prefers-reduced-motion:reduce){.shopee-connection-spinner{animation:none}}

@@ -1,0 +1,13 @@
+.home-page-picker{position:relative;flex-shrink:0}
+.home-page-trigger{display:flex;align-items:center;gap:8px;border:0;background:transparent;color:var(--muted);font:inherit;padding:7px 8px;border-radius:9px;cursor:pointer;transition:background .15s,color .15s}
+.home-page-trigger:hover{background:var(--selected);color:var(--text)}
+.home-page-trigger svg{transition:transform .15s}.home-page-trigger svg.is-open{transform:rotate(180deg)}
+.settings-row .home-page-menu{display:block;position:absolute;z-index:5;top:calc(100% + 6px);right:0;width:340px;max-width:calc(100vw - 64px);padding:6px;background:var(--modal-surface);border-radius:18px;box-shadow:0 6px 24px #0000000d}
+.home-page-menu>button{display:block;width:100%;padding:6px 12px;border:0;border-radius:12px;background:transparent;text-align:left;font:inherit;color:var(--text);cursor:pointer;transition:background .15s}
+.home-page-menu>button:hover,.home-page-menu>button:focus-visible{background:var(--selected);outline:none}
+.home-page-option-title{display:flex;align-items:center;justify-content:space-between;gap:16px;font-size:13px;line-height:18px}
+.home-page-option-title svg{color:var(--text)}
+.home-page-option-description{display:block;margin-top:1px;font-size:12px;line-height:17px;color:var(--muted)}
+.home-page-trigger:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+@media(max-width:459px){.home-page-trigger{padding:7px 4px;font-size:12px}.settings-row .home-page-menu{width:340px}}
+@media(prefers-reduced-motion:reduce){.home-page-picker *{transition:none}}

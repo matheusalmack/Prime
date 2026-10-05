@@ -1,0 +1,5 @@
+.ugc-videos-visual{position:relative;width:100%;aspect-ratio:1;background:linear-gradient(140deg,var(--sidebar),var(--selected));border-radius:24px;overflow:hidden;border:0;isolation:isolate;container-type:inline-size}
+.ugc-video-thumbnail{position:absolute;width:36%;height:68%;border-radius:3.5cqw;background-image:url('/images/landing/ugc-product-examples.png');background-repeat:no-repeat;background-size:300% 100%;box-shadow:0 3cqw 5cqw #14203324}
+.ugc-video-thumbnail-0{left:-7%;top:24%}
+.ugc-video-thumbnail-1{left:32%;top:16%;z-index:1}
+.ugc-video-thumbnail-2{left:71%;top:9%}

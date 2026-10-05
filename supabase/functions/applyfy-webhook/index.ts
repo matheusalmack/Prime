@@ -31,6 +31,11 @@ Deno.serve(async (request) => {
     })
     const { error } = await admin.rpc('process_payment_event', payment)
     if (error) return json({ error: 'Unable to process event' }, 500)
+    if(payment.p_status==='approved'){
+      // Access is already persisted. A failed invitation is retried by the outbox scheduler.
+      const activation=await admin.functions.invoke('prime-maintenance',{body:{email:payment.p_email}})
+      if(activation.error)console.warn('Buyer activation queued for retry')
+    }
     return json({ received: true })
   } catch { return json({ error: 'Unable to process event' }, 500) }
 })

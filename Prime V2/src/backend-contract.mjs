@@ -1,0 +1,5 @@
+export function normalizeProfile(user,profile={}){return {id:user.id,name:[profile.first_name??user.user_metadata?.first_name,profile.last_name??user.user_metadata?.last_name].filter(Boolean).join(' ')||user.user_metadata?.name||'Sua conta',email:user.email,avatar:user.user_metadata?.avatar_url||user.user_metadata?.picture||null,createdAt:profile.created_at||user.created_at}}
+export function validatedAffiliateUrl(value){const url=new URL(value);if(url.protocol!=='https:')throw new Error('O link precisa começar com https://.');return url.href}
+export function mapSavedProducts(rows){return Object.fromEntries(rows.map(row=>[row.product_id,row.affiliate_url]))}
+
+export function mapSessions(rows){return rows.map(row=>{const ua=row.user_agent||'';return {id:row.id,current:row.is_current,createdAt:row.created_at,expiresAt:row.expires_at,ip:row.ip,browser:/Edg\//.test(ua)?'Edge':/Firefox\//.test(ua)?'Firefox':/Chrome\//.test(ua)?'Chrome':/Safari\//.test(ua)?'Safari':null,os:/Android/.test(ua)?'Android':/iPhone|iPad/.test(ua)?'iOS':/Mac/.test(ua)?'macOS':/Windows/.test(ua)?'Windows':/Linux/.test(ua)?'Linux':null,client:'Web'}})}

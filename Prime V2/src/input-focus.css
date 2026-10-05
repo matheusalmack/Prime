@@ -1,0 +1,27 @@
+/* One shared focus stroke for every editable field and compound search. */
+:root{--input-focus-width:1.5px;--input-focus-color:var(--blue)}
+:where(input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=color]):not([type=file]),textarea,select):focus{
+ outline:var(--input-focus-width) solid var(--input-focus-color)!important;
+ outline-offset:-1px!important;
+ border-color:var(--input-focus-color)!important;
+ box-shadow:none!important;
+}
+:is(.promotion-product-search,.supplier-search,.video-picker-search,.store-product-search,.language-picker-search,.global-search-header,.search-dialog>div,.sb-address,.sf-search,.sf2-search,.composer):focus-within{
+ outline:var(--input-focus-width) solid var(--input-focus-color)!important;
+ outline-offset:-1px!important;
+ box-shadow:none!important;
+}
+:is(.promotion-product-search,.supplier-search,.video-picker-search,.sb-address,.sf-search,.sf2-search,.composer):focus-within{border-color:var(--input-focus-color)!important}
+:is(.promotion-product-search,.supplier-search,.video-picker-search,.store-product-search,.language-picker-search,.global-search-header,.search-dialog>div,.sb-address,.sf-search,.sf2-search,.composer) :is(input,textarea):focus{
+ outline:none!important;border-color:transparent!important;box-shadow:none!important;
+}
+/* Search headers remain borderless, including while typing. */
+:is(.global-search-header.global-search-header,.language-picker-search.language-picker-search):focus-within{outline:none!important;box-shadow:none!important}
+:is(.global-search-header,.language-picker-search) input:focus{outline:none!important;box-shadow:none!important;border-color:transparent!important}
+/* Floating catalog searches retain their neutral border when focused. */
+.supplier-search.supplier-search:focus-within{outline:none!important;box-shadow:0 6px 25px #00000018!important;border-color:var(--tooltip-border)!important}
+.supplier-search input:focus{outline:none!important;box-shadow:none!important}
+
+.promotion-money-field:focus-within{outline:var(--input-focus-width) solid var(--blue);outline-offset:-1px;border-color:var(--blue)}.promotion-money-field input:focus{outline:none!important;box-shadow:none!important;border:0!important}
+/* The store product search sits inside the selection dock without its own border. */
+.store-product-search.store-product-search:focus-within{outline:none!important;box-shadow:none!important}

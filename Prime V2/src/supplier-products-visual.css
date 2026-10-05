@@ -1,0 +1,6 @@
+.supplier-products-visual{position:relative;width:100%;aspect-ratio:1;background:linear-gradient(140deg,var(--sidebar),var(--selected));border-radius:24px;overflow:hidden;border:0;container-type:inline-size;isolation:isolate}
+.supplier-products-rows{position:absolute;top:-9%;left:-15%;width:132%;display:flex;flex-direction:column;gap:5cqw;transform:rotate(-8deg)}
+.supplier-products-row{display:flex;gap:5cqw}
+.supplier-products-row:nth-child(2){transform:translateX(-13cqw)}
+.supplier-products-row:nth-child(3){transform:translateX(4cqw)}
+.supplier-products-row img{display:block;flex:0 0 32cqw;width:32cqw;height:32cqw;object-fit:cover;background:#fff;border:0;border-radius:3.5cqw;box-shadow:0 3cqw 5cqw #14203317}

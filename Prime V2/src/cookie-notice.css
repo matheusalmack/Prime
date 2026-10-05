@@ -1,0 +1,22 @@
+.cookie-notice,.cookie-settings{--cookie-bg:#fff;--cookie-text:#171717;--cookie-muted:#858585;--cookie-line:#dedede;--cookie-hover:#f3f3f3;background:var(--cookie-bg);color:var(--cookie-text)}
+[data-theme=dark] :is(.cookie-notice,.cookie-settings){--cookie-bg:#242424;--cookie-text:#eee;--cookie-muted:#aaa;--cookie-line:#414141;--cookie-hover:#333}
+@media(prefers-color-scheme:dark){[data-theme=system] :is(.cookie-notice,.cookie-settings){--cookie-bg:#242424;--cookie-text:#eee;--cookie-muted:#aaa;--cookie-line:#414141;--cookie-hover:#333}}
+.cookie-notice{position:fixed;bottom:18px;right:18px;width:min(600px,calc(100% - 36px));padding:18px;border:1px solid var(--cookie-line);border-radius:16px;box-shadow:0 4px 20px #0002;z-index:90}.cookie-notice>.modal-close-button{position:absolute;right:10px;top:10px;color:var(--cookie-muted)}.cookie-notice p{margin:0 24px 16px 0;font-size:13px;line-height:21px;color:var(--cookie-muted)}.cookie-notice p button{padding:0;text-decoration:underline;background:none;color:var(--cookie-text)}.cookie-actions{display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap}.cookie-actions button{border:1px solid var(--cookie-line);border-radius:24px;padding:7px 12px;font-size:12px;min-height:32px}.cookie-actions button:hover{background:var(--cookie-hover)}.cookie-actions .cookie-primary{background:var(--cookie-text);color:var(--cookie-bg);border-color:var(--cookie-text)}.cookie-actions .cookie-primary:hover{background:var(--cookie-text);opacity:.85}
+.cookie-settings{width:500px;padding:26px}.cookie-settings header{display:flex;align-items:center;justify-content:space-between;gap:16px}.cookie-settings h2{margin:0;font-size:21px;font-weight:550}.cookie-settings>p{font-size:14px;line-height:1.6;color:var(--cookie-muted)}.cookie-setting{display:flex;justify-content:space-between;align-items:center;gap:18px;border-bottom:1px solid var(--cookie-line);padding:18px 0}.cookie-setting strong{font-weight:500;font-size:14px}.cookie-setting p{font-size:12px;color:var(--cookie-muted);margin:5px 0 0;line-height:1.5}.cookie-setting>span{display:flex;align-items:center;gap:5px;font-size:11px;white-space:nowrap;color:var(--cookie-muted)}.cookie-switch{flex-shrink:0;width:36px;height:22px;border-radius:20px;background:var(--cookie-line);padding:3px}.cookie-switch span{display:block;width:16px;height:16px;border-radius:50%;background:var(--cookie-bg)}.cookie-switch[aria-checked=true]{background:var(--cookie-text)}.cookie-switch[aria-checked=true] span{transform:translateX(14px)}.cookie-settings .cookie-actions{margin-top:22px}
+@media(max-width:600px){.cookie-notice{bottom:12px;right:12px;width:calc(100% - 24px);padding:16px}.cookie-actions{justify-content:flex-start}.cookie-actions button{min-height:36px}.cookie-settings{padding:22px}.cookie-setting{gap:12px}}
+/* Cookie dismiss hover changes only the icon, without a background or shadow. */
+.cookie-notice>.modal-close-button{display:grid;place-items:center;width:32px;height:32px;padding:0;background:transparent;box-shadow:none;transition:color .15s ease}
+.cookie-notice>.modal-close-button:hover{background:transparent;box-shadow:none;color:var(--cookie-text)}
+/* Keep the shared cookie dialog independent of generic modal heading styles. */
+.v2-modal.cookie-settings{width:500px;max-width:500px;padding:24px;background:var(--cookie-bg);color:var(--cookie-text)}
+.v2-modal.cookie-settings>header{display:block;padding-right:36px;margin:0}
+.v2-modal.cookie-settings>header h2{margin:0;font-size:20px;line-height:28px;font-weight:500;letter-spacing:-.4px}
+.v2-modal.cookie-settings>header .modal-close-button{position:absolute;top:16px;right:16px;color:var(--cookie-muted)}
+.v2-modal.cookie-settings>p{margin:12px 0 6px;font-size:13px;line-height:21px;color:var(--cookie-muted)}
+.v2-modal.cookie-settings .cookie-actions{margin-top:20px;justify-content:flex-end}
+@media(max-width:600px){.v2-modal.cookie-settings{padding:22px}.v2-modal.cookie-settings>header h2{font-size:18px;line-height:25px}.v2-modal.cookie-settings>header .modal-close-button{top:14px;right:14px}}
+
+/* One shared palette, matching the login notice on every page. */
+:root :is(.cookie-notice,.cookie-settings){--cookie-bg:var(--field);--cookie-text:var(--text);--cookie-muted:var(--muted);--cookie-line:var(--line);--cookie-hover:var(--selected)}
+
+.v2-modal-overlay:has(.cookie-settings,.cookie-legal){z-index:100}

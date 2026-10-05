@@ -1,9 +1,9 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "vite",
-  "buildCommand": "pnpm build",
-  "outputDirectory": "dist",
-  "installCommand": "pnpm install --frozen-lockfile",
+  "buildCommand": "npm --prefix \"Prime V2\" run build",
+  "outputDirectory": "Prime V2/dist",
+  "installCommand": "npm --prefix \"Prime V2\" ci --no-audit --no-fund",
   "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }],
   "headers": [{ "source": "/(.*)", "headers": [
     { "key": "X-Content-Type-Options", "value": "nosniff" },

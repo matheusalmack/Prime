@@ -1,0 +1,4 @@
+.prime-brand-mark{display:block;width:40px;height:40px;flex:0 0 40px;background-color:var(--text);mask:url('/images/prime-brand.png') center/contain no-repeat;-webkit-mask:url('/images/prime-brand.png') center/contain no-repeat}
+.sidebar-top>.prime-brand-mark{margin-left:0}
+.collapsed .sidebar-top>.prime-brand-mark{display:none}
+.landing-header>.landing-logo-space{display:flex;align-items:center;height:40px}

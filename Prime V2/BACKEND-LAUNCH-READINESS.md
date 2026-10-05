@@ -50,9 +50,9 @@ Carregamento compartilhado com logo central animada para autenticação, saída,
 - Site URL Auth atualizado para `https://primeafiliado.com`; recuperação permite os destinos exatos `/recuperar-senha` no domínio principal e www, preservando destinos anteriores.
 - Banco preserva as 4 contas e 38 produtos salvos; nenhuma solicitação de exclusão ou ativação foi criada na validação.
 
-Ainda concluir antes de afirmar que todos os fluxos foram comprovados:
+Validação da conta real e limites que permanecem:
 
-- Login visual do proprietário, conferência dos 29 produtos e perfil, e validação de escrita/persistência em dados autorizados.
+- Login visual do proprietário concluído em 5 de outubro: 29 cards de produtos salvos, e-mail, nome/sobrenome, plano SuperPrime Heavy e data original de 15 de setembro de 2026. Salvamento do nome sem alteração dos valores concluído; dados persistiram após recarregar.
 - Fluxo de compra completo no Applyfy e recebimento do evento hospedado. Testes de contrato e banco não comprovam uma transação real.
 - SMTP/ativação e recuperação por e-mail, adiados pelo proprietário.
 - Conexão Shopee da V2 permanece explicitamente em demonstração; não é uma autenticação real Shopee.

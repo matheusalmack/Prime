@@ -5,7 +5,6 @@ import MobileViewport from './MobileViewport';
 import ServicePages,{serviceRoutes} from './ServicePages';
 import PrimeLogo from './PrimeLogo';
 import LoadingScreen from './LoadingScreen';
-import UpdateWelcome,{PRIME_UPDATE_VERSION} from './UpdateWelcome';
 import {ReleaseNotes,SharedLinks} from './HelpPages';
 import FeedbackModal from './Feedback';
 import Plans from './Plans';
@@ -100,8 +99,6 @@ function App(){
  const backend=useBackend();
  const profile=backend.profile||{name:'Sua conta',email:''};
  const setProfile=backend.updateProfile;
- const [acknowledgingUpdate,setAcknowledgingUpdate]=useState(false),[updateError,setUpdateError]=useState('');
- async function acknowledgeUpdate(){if(acknowledgingUpdate)return;setAcknowledgingUpdate(true);setUpdateError('');try{await backend.savePreferences({updateSeenVersion:PRIME_UPDATE_VERSION});const url=new URL(location.href);url.searchParams.delete('atualizacao');history.replaceState(null,'',url);window.scrollTo({top:0,behavior:'instant'})}catch(e){setUpdateError(e.message)}finally{setAcknowledgingUpdate(false)}}
  const [active,setActive]=useState(()=>{try{return readRoute(location).page??Math.min(3,Math.max(0,Number(localStorage.getItem('prime-v2-home'))||0))}catch{return 0}}),[collapsed,setCollapsed]=useState(false),[mobileOpen,setMobileOpen]=useState(false),[text,setText]=useState('');
  const [popup,setPopup]=useState(null),[theme,setThemeState]=useState(()=>{try{return ['light','dark','system'].includes(localStorage.getItem('prime-v2-theme'))?localStorage.getItem('prime-v2-theme'):'light'}catch{return 'light'}}),[search,setSearch]=useState(''),[feedback,setFeedback]=useState('');
  async function setTheme(value){try{if(backend.user)await backend.savePreferences({theme:value});setThemeState(value)}catch(e){notify(e.message)}}
@@ -146,7 +143,6 @@ function App(){
  if(!backend.catalogReady)return <LoadingScreen label="Carregando catálogo…"/>;
  if(!backend.access?.has_access)return <div className="backend-state"><PrimeLogo/><h1>Seu plano não está ativo</h1><p>Atualize seu plano para continuar usando o Prime.</p><Plans onClose={()=>backend.signOut().then(()=>navigateAuth('login'))}/></div>;
  const serviceType=Object.keys(serviceRoutes).find(key=>serviceRoutes[key]===location.pathname);
- if(!serviceType&&backend.preferences.updateSeenVersion!==PRIME_UPDATE_VERSION)return <UpdateWelcome onContinue={acknowledgeUpdate} busy={acknowledgingUpdate} error={updateError}/>;
  if(accountOpen||serviceType)return <><Account initialResource={serviceType} profile={profile} onProfileChange={setProfile} accountData={{createdAt:profile.createdAt,passwordEnabled:true,sessions:backend.sessions}} onRevokeSession={backend.revokeSession} onDefinePassword={backend.definePassword} onDeleteAccount={backend.deleteAccount} onExportData={backend.exportAccountData} plan={backend.access?.plan_code||backend.access?.account_role} theme={theme} setTheme={setTheme} onReturn={closeAccount} onBack={()=>{closeAccount();setPopup('settings')}} onSignOut={async scope=>{await backend.signOut(scope);navigateAuth('login')}} onUpgrade={()=>setPopup('plans')}/>{popup==='plans'&&<Plans onClose={()=>setPopup(null)}/>}</>;
  return <div className={`shell ${collapsed?'collapsed':''} ${mobileOpen?'mobile-drawer-open':''}`} onTouchStart={touchStart} onTouchEnd={touchEnd} onTouchCancel={()=>{swipeStart.current=null}}>
   {mobileOpen&&<button className="scrim" aria-label="Fechar menu" onClick={()=>setMobileOpen(false)}/>}

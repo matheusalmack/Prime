@@ -437,4 +437,3 @@
 .sidebar-stores-more{color:var(--muted);justify-content:space-between}.sidebar-stores-more:hover,.sidebar-stores-more:focus-visible{color:var(--text);background:var(--selected)}
 .backend-state{min-height:100dvh;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:16px;padding:32px;text-align:center}.backend-state>button{padding:12px 24px;border-radius:999px;background:var(--text);color:var(--page)}
 
-.video-caption-preview{margin-top:24px}.video-caption-preview>label{display:block;font-size:14px;font-weight:500;margin-bottom:10px}
